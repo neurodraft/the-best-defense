@@ -8,7 +8,7 @@ public class Child : MonoBehaviour
     private GameObject parent; 
 
     private float counter = 0.0f;
-    private float amplifier = 1;
+    //private float amplifier = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +29,12 @@ public class Child : MonoBehaviour
 
         newPosition += Vector3.up;
 
-        newPosition.x += Mathf.Sin(counter)*amplifier;
+        newPosition.x += Mathf.Sin(counter)*parent.GetComponent<Parent>().amplifier;
 
         this.transform.position = newPosition;
     }
 
-    public void SetAmplification(float a){
+    /*public void SetAmplification(float a){
         amplifier = a;
-    }
+    }*/
 }
