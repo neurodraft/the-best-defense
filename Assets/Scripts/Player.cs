@@ -17,19 +17,60 @@ public class Player : MonoBehaviour
 
     public GameObject shield;
 
+    public MeshCollider shieldInteractionTrigger;
+
     private Animator animator;
+
+    public ParticleSystem damageParticleSystem;
 
     private bool isMoving = false;
     private bool isShieldActive;
+
+    private bool canControl = true;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        EventManager.StartListening("gameOver", ResetState);
+        EventManager.StartListening("player_damage", HandleDamage);
+    }
+
+    public void ResetState(Dictionary<string, object> message)
+    {
+
+    }
+
+    public void HandleDamage(Dictionary<string, object> message)
+    {
+        setShieldActive(false);
+        StartCoroutine(DisableControl(1f));
+
+        ContactPoint contactPoint = (ContactPoint)message["contact_point"];
+       
+        controller.Move(contactPoint.normal * -1);
+        if(damageParticleSystem != null)
+        {
+            damageParticleSystem.transform.position = contactPoint.point;
+            damageParticleSystem.Play();
+        }
+    }
+
+    IEnumerator DisableControl(float duration)
+    {
+        canControl = false;
+        Debug.Log("canControl = false");
+
+        yield return new WaitForSeconds(duration);
+
+        canControl = true;
+        Debug.Log("canControl = true");
+
     }
 
     void Update()
     {
+
         groundedPlayer = controller.isGrounded;
 
         if (groundedPlayer && playerVelocity.y < 0)
@@ -37,37 +78,43 @@ public class Player : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
-        handleShield();
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized    ;
+        Vector3 move = Vector3.zero;
+
+        if (canControl)
+        {
+            handleShield();
+
+            move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+
+            if (cameraHelper != null)
+            {
+                Quaternion cameraRotation = cameraHelper.transform.rotation;
+                move = cameraRotation * move;
+            }
+
+        }
 
         if (isMoving && move == Vector3.zero)
         {
             isMoving = false;
             animator.SetBool("isRunning", isMoving);
         }
-        else if(!isMoving && move != Vector3.zero)
+        else if (!isMoving && move != Vector3.zero)
         {
             isMoving = true;
             animator.SetBool("isRunning", isMoving);
         }
 
-
-        if (cameraHelper != null)
-        {
-            Quaternion cameraRotation = cameraHelper.transform.rotation;
-            move = cameraRotation * move;
-        }
-
-
         if (isShieldActive)
         {
             rotatePlayerTowardsCursor();
-            move = move * playerSpeed*0.5f;
+            move = move * playerSpeed * 0.5f;
             float angle = Mathf.Abs(Vector3.Angle(move, transform.forward));
             animator.SetBool("isWalkingBackward", angle > 90);
 
-        } else
+        }
+        else
         {
             if (move != Vector3.zero)
             {
@@ -75,7 +122,7 @@ public class Player : MonoBehaviour
             }
             move = move * playerSpeed;
         }
-        
+
 
         /*
         // Changes the height position of the player..
@@ -89,7 +136,7 @@ public class Player : MonoBehaviour
         controller.Move((move + playerVelocity) * Time.deltaTime);
 
         float actualPlayerSpeed = new Vector3(controller.velocity.x, 0, controller.velocity.z).magnitude;
-        Debug.Log(actualPlayerSpeed);
+        //Debug.Log(actualPlayerSpeed);
 
         animator.SetFloat("playerSpeed", actualPlayerSpeed/playerSpeed);
     }
