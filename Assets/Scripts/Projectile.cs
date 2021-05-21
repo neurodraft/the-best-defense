@@ -67,19 +67,19 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public void Boost()
+    public void Boost(float charge)
     {
         if (!disappearing)
         {
             timer = 0;
-            StartCoroutine(ApplyBoostNextUpdate());
+            StartCoroutine(ApplyBoostNextUpdate(charge));
         }
     }
 
-    IEnumerator ApplyBoostNextUpdate()
+    IEnumerator ApplyBoostNextUpdate(float charge)
     {
         yield return new WaitForFixedUpdate();
-        rb.velocity = rb.velocity.normalized * 30;
+        rb.velocity = rb.velocity.normalized * 30*charge;
     }
 
 

@@ -171,11 +171,11 @@ public class Player : MonoBehaviour
 
     private void handleShield()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             setShieldActive(true);
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             setShieldActive(false);
 
