@@ -14,11 +14,16 @@ public class Projectile : MonoBehaviour
 
     public ParticleSystem particleSystem;
     private bool toBeDestroyed = false;
+    public AudioClip wallSound;
+    public AudioClip shieldImpact;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -86,6 +91,13 @@ public class Projectile : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Shield")){
+            audioSource.PlayOneShot(shieldImpact);
+        }
+        else
+        {
+            audioSource.PlayOneShot(wallSound);
+        }
         //  && collision.impulse.magnitude > 0.1f
         if (particleSystem != null)
         {
@@ -97,6 +109,7 @@ public class Projectile : MonoBehaviour
 
         if (!disappearing && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Projectile")))
         {
+
             Debug.Log(collision.collider.gameObject.name);
 
             if (collision.gameObject.CompareTag("Player"))
