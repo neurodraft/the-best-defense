@@ -46,12 +46,12 @@ public class Player : MonoBehaviour
         setShieldActive(false);
         StartCoroutine(DisableControl(1f));
 
-        //ContactPoint contactPoint = (ContactPoint)message["contact_point"];
+        ContactPoint contactPoint = (ContactPoint)message["contact_point"];
        
-        //controller.Move(contactPoint.normal * -1);
+        controller.Move(contactPoint.normal * -1);
         if(damageParticleSystem != null)
         {
-            //damageParticleSystem.transform.position = contactPoint.point;
+            damageParticleSystem.transform.position = contactPoint.point;
             damageParticleSystem.Play();
         }
     }

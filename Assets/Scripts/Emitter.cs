@@ -19,7 +19,7 @@ public class Emitter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        EventManager.StartListening("fire_projectile", FireSingleShot);
     }
 
     // Update is called once per frame
@@ -55,5 +55,12 @@ public class Emitter : MonoBehaviour
         isFiring = value;
         timer = 0;
     }
+
+    private void FireSingleShot(Dictionary<string, object> message)
+    {
+        Fire();
+    }
+
+    
 
 }
