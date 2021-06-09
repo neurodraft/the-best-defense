@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PressurePlate : MonoBehaviour
 {
     public Transform pressurePlate;
     private Vector3 defaultPosition;
+    public RemotelyActivatable[] emitters;
 
     private bool isPressed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +28,12 @@ public class PressurePlate : MonoBehaviour
         if (!isPressed)
         {
             Debug.Log("Pressure plate on trigger enter");
-            EventManager.TriggerEvent("fire_projectile", null);
-            pressurePlate.position = new Vector3(pressurePlate.position.x, 0.01f, pressurePlate.position.z);
+            
+            foreach(RemotelyActivatable emitter in emitters){
+                emitter.ActivateRemotely();
+            }
+
+            pressurePlate.position += new Vector3(0, -0.1f, 0);
             isPressed = true;
         }
         
@@ -40,8 +47,6 @@ public class PressurePlate : MonoBehaviour
             pressurePlate.position = defaultPosition;
             isPressed = false;
         }
-        
-        
     }
 
 }
