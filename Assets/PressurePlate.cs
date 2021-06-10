@@ -10,7 +10,6 @@ public class PressurePlate : MonoBehaviour
     public RemotelyActivatable[] emitters;
 
     private bool isPressed = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,28 +24,33 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isPressed)
-        {
-            Debug.Log("Pressure plate on trigger enter");
+        Debug.Log("Pressure plate on trigger enter");
+        isPressed = true;
+        StartCoroutine(StartShooting());
+        pressurePlate.position += new Vector3(0, -0.1f, 0);
             
-            foreach(RemotelyActivatable emitter in emitters){
-                emitter.ActivateRemotely();
-            }
-
-            pressurePlate.position += new Vector3(0, -0.1f, 0);
-            isPressed = true;
-        }
-        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (isPressed)
+        Debug.Log("Pressure plate on trigger exit");
+        pressurePlate.position = defaultPosition;
+        isPressed = false;
+        StopCoroutine(StartShooting());
+    }
+
+    private IEnumerator StartShooting()
+    {
+
+        while (isPressed)
         {
-            Debug.Log("Pressure plate on trigger exit");
-            pressurePlate.position = defaultPosition;
-            isPressed = false;
+            foreach (RemotelyActivatable emitter in emitters)
+            {
+                emitter.ActivateRemotely();
+            }
+            yield return new WaitForSeconds(1f);
         }
+           
     }
 
 }
