@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
 
     private bool isMoving = false;
     private bool isShieldActive;
+    public float maxHealth=10.0f;
+    public float currentHealth=10.0f;
 
     private bool canControl = true;
 
@@ -216,6 +218,17 @@ public class Player : MonoBehaviour
 
         // Apply the push
         body.velocity = pushDir * pushPower;
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Projectile"))
+        {
+            currentHealth -= 1;
+        }
+    }
+    public float getCurrentHealth()
+    {
+        return currentHealth;
     }
 
 }
