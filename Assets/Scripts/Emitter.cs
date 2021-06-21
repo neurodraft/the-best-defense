@@ -33,10 +33,11 @@ public class Emitter : RemotelyActivatable
                 timer = 0;
                 Fire();
             }
-        }*/
+        }
+    }*/
         
 
-        //transform.Rotate(new Vector3(0, 90 * Time.deltaTime, 0), Space.Self);
+       //transform.Rotate(new Vector3(0, 90 * Time.deltaTime, 0), Space.Self);
     }
 
 
