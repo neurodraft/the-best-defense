@@ -191,6 +191,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isShieldActive", val);
     }
 
+    /*
     // this script pushes all rigidbodies that the character touches
     float pushPower = 2.0f;
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -219,6 +220,8 @@ public class Player : MonoBehaviour
         // Apply the push
         body.velocity = pushDir * pushPower;
     }
+    */
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Projectile"))

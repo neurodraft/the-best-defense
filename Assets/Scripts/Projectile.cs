@@ -13,6 +13,9 @@ public class Projectile : MonoBehaviour
     private float timer = 0;
 
     public ParticleSystem particleSystem;
+    public ParticleSystem destroyedParticleSystem;
+    public Light light;
+
     private bool toBeDestroyed = false;
     public AudioClip wallSound;
     public AudioClip shieldImpact;
@@ -51,7 +54,9 @@ public class Projectile : MonoBehaviour
     {
         toBeDestroyed = true;
         Debug.Log("Particle Sytem Play");
+        light.enabled = false;
         particleSystem.Play();
+        destroyedParticleSystem.Play();
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(1f);
