@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Emitter : MonoBehaviour
+public class Emitter : RemotelyActivatable
 {
     public Transform emissionPoint;
 
@@ -25,7 +25,7 @@ public class Emitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isFiring)
+        /*if (isFiring)
         {
             timer += Time.deltaTime;
             if (timer >= interval)
@@ -34,9 +34,10 @@ public class Emitter : MonoBehaviour
                 Fire();
             }
         }
+    }*/
         
 
-        //transform.Rotate(new Vector3(0, 90 * Time.deltaTime, 0), Space.Self);
+       //transform.Rotate(new Vector3(0, 90 * Time.deltaTime, 0), Space.Self);
     }
 
 
@@ -56,4 +57,9 @@ public class Emitter : MonoBehaviour
         timer = 0;
     }
 
+    override
+    public void ActivateRemotely()
+    {
+        Fire();
+    }
 }
