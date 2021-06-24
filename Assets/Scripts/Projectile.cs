@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
-        
+        GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame

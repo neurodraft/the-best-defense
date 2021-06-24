@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 33000010529367134}
   - component: {fileID: 23000011916199912}
   - component: {fileID: 95000010017781358}
+  - component: {fileID: 4450445371044893295}
   m_Layer: 0
   m_Name: Sand_Pillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4000013367559476
 Transform:
@@ -99,3 +100,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &4450445371044893295
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013539010130}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.7341743, y: 27.886095, z: 5.734177}
+  m_Center: {x: -0.001562476, y: 13.95596, z: 0.0000010728835}
