@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class ViewCone : MonoBehaviour
 
     public Transform emissionPoint;
 
-    public Emitter emitter;
+    public SimpleEmitter emitter;
     // Start is called before the first frame update
     void Start()
     {
