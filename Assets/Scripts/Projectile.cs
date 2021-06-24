@@ -37,7 +37,11 @@ public class Projectile : MonoBehaviour
         {
             disappear();
         }
-    
+        light.range = 2 + Mathf.PerlinNoise(Time.time*10f, 0);
+        light.intensity = 1 + Mathf.PerlinNoise(Time.time*10f, 0);
+
+
+
     }
 
     void FixedUpdate()
