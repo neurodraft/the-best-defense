@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Projectile
   - Blade
+  - Shield
   layers:
   - Default
   - TransparentFX

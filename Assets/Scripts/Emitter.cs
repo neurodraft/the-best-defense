@@ -8,7 +8,7 @@ public class Emitter : RemotelyActivatable
 
     public GameObject projectilePrefab;
 
-    private float timer = 0;
+    private float timer = 0f;
 
     public float interval = 1.0f;
 
@@ -25,7 +25,7 @@ public class Emitter : RemotelyActivatable
     // Update is called once per frame
     void Update()
     {
-        /*if (isFiring)
+        if (isFiring)
         {
             timer += Time.deltaTime;
             if (timer >= interval)
@@ -34,7 +34,7 @@ public class Emitter : RemotelyActivatable
                 Fire();
             }
         }
-    }*/
+    
         
 
        //transform.Rotate(new Vector3(0, 90 * Time.deltaTime, 0), Space.Self);
