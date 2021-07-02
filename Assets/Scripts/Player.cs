@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     public float currentHealth=10.0f;
 
     private bool canControl = true;
+    public float currentStamina=10.0f;
+    public float maxStamina = 10.0f;
 
     private void Start()
     {
@@ -72,7 +74,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
+        
         groundedPlayer = controller.isGrounded;
 
         if (groundedPlayer && playerVelocity.y < 0)
@@ -221,14 +223,35 @@ public class Player : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Projectile"))
+        if (!isShieldActive && collision.gameObject.CompareTag("Projectile"))
         {
             currentHealth -= 1;
         }
+       if(isShieldActive && collision.gameObject.CompareTag("Projectile"))
+        {
+            currentStamina -= 1;
+        }
+
     }
     public float getCurrentHealth()
     {
         return currentHealth;
+    }
+    public float getCurrentStamina()
+    {
+        return currentStamina;
+    }
+    
+   
+   public bool updateStamina()
+    {
+        if (isShieldActive)
+        {
+            currentStamina -= 1;
+            isShieldActive = false;
+            return true;
+        }
+        return false;
     }
 
 }

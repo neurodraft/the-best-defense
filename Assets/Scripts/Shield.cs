@@ -21,6 +21,7 @@ public class Shield : MonoBehaviour
     private Vector3 slamPosition;
 
     public ParticleSystem impactParticleSystem;
+   
 
     void Start()
     {
@@ -138,5 +139,6 @@ public class Shield : MonoBehaviour
             }
         }
     }
+    
 
 }
