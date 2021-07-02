@@ -13,6 +13,9 @@ public class Projectile : MonoBehaviour
     private float timer = 0;
 
     public ParticleSystem particleSystem;
+    public ParticleSystem destroyedParticleSystem;
+    public Light light;
+
     private bool toBeDestroyed = false;
     public AudioClip wallSound;
     public AudioClip shieldImpact;
@@ -23,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
-        
+        GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame
@@ -34,7 +37,11 @@ public class Projectile : MonoBehaviour
         {
             disappear();
         }
-    
+        light.range = 2 + Mathf.PerlinNoise(Time.time*10f, 0);
+        light.intensity = 1 + Mathf.PerlinNoise(Time.time*10f, 0);
+
+
+
     }
 
     void FixedUpdate()
@@ -51,7 +58,9 @@ public class Projectile : MonoBehaviour
     {
         toBeDestroyed = true;
         Debug.Log("Particle Sytem Play");
+        light.enabled = false;
         particleSystem.Play();
+        destroyedParticleSystem.Play();
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(1f);

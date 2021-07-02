@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     private bool groundedPlayer;
     private float playerSpeed = 4.0f;
     private float rotationSpeed = 4.0f;
-    private float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
 
     public CameraHelper cameraHelper;
@@ -193,6 +192,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isShieldActive", val);
     }
 
+    /*
     // this script pushes all rigidbodies that the character touches
     float pushPower = 2.0f;
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -221,6 +221,8 @@ public class Player : MonoBehaviour
         // Apply the push
         body.velocity = pushDir * pushPower;
     }
+    */
+
     void OnCollisionEnter(Collision collision)
     {
         if (!isShieldActive && collision.gameObject.CompareTag("Projectile"))

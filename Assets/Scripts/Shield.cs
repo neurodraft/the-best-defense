@@ -90,18 +90,18 @@ public class Shield : MonoBehaviour
         Vector3 initalPosition = transform.localPosition;
         float slamTimer = 0;
         boosting = true;
-        while (slamTimer < 1f)
+        while (slamTimer < 2f)
         {
             yield return new WaitForFixedUpdate();
-            slamTimer += Mathf.Clamp(slamTimer + (Time.fixedDeltaTime * 4), 0f, 1f); ;
+            slamTimer += Mathf.Clamp(slamTimer + (Time.fixedDeltaTime), 0f, 1f); ;
             transform.localPosition = Vector3.Lerp(initalPosition, slamPosition, slamTimer);
         }
         boosting = false;
         slamTimer = 0;
-        while (slamTimer < 1f)
+        while (slamTimer < 0.5f)
         {
             yield return new WaitForFixedUpdate();
-            slamTimer += Mathf.Clamp(slamTimer + (Time.fixedDeltaTime * 2), 0f, 1f); ;
+            slamTimer += Mathf.Clamp(slamTimer + (Time.fixedDeltaTime), 0f, 1f); ;
             transform.localPosition = Vector3.Lerp(slamPosition, normalPosition, slamTimer);
         }
         transform.localPosition = normalPosition;
