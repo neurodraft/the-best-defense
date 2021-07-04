@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     public float currentHealth=10.0f;
 
     private bool canControl = true;
-    public float currentStamina=10.0f;
+    public float currentStamina;
     public float maxStamina = 10.0f;
 
     private void Start()
@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         EventManager.StartListening("gameOver", ResetState);
         EventManager.StartListening("player_damage", HandleDamage);
+        currentStamina = 10.0f;
     }
 
     public void ResetState(Dictionary<string, object> message)
@@ -240,10 +241,7 @@ public class Player : MonoBehaviour
         {
             currentHealth -= 1;
         }
-       if(isShieldActive && collision.gameObject.CompareTag("Projectile"))
-        {
-            currentStamina -= 1;
-        }
+       
 
     }
     public float getCurrentHealth()
@@ -254,17 +252,21 @@ public class Player : MonoBehaviour
     {
         return currentStamina;
     }
+    public bool getIsShieldActive()
+    {
+        return isShieldActive;
+    }
+    public void setStamina()
+    {
+        float timeValue = 10.0f;
+        while (isShieldActive)
+        {
+            timeValue -= Time.deltaTime;
+            currentStamina -= 1;
+        }
+    }
     
    
-   public bool updateStamina()
-    {
-        if (isShieldActive)
-        {
-            currentStamina -= 1;
-            isShieldActive = false;
-            return true;
-        }
-        return false;
-    }
+   
 
 }
