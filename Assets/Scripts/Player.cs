@@ -220,6 +220,7 @@ public class Player : MonoBehaviour
         if (hit.moveDirection.y < -0.3)
         {
             return;
+            return;
         }
 
         // Calculate push direction from move direction,
@@ -255,7 +256,7 @@ public class Player : MonoBehaviour
     {
         return isShieldActive;
     }
-    public void setStamina()
+    /*public void setStamina()
     {
         float timeValue = 10.0f;
         while (isShieldActive)
@@ -263,7 +264,7 @@ public class Player : MonoBehaviour
             timeValue -= Time.deltaTime;
             currentStamina -= 1;
         }
-    }
+    }*/
     
    
    
