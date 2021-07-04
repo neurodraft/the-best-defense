@@ -21,6 +21,8 @@ public class Shield : MonoBehaviour
     private Vector3 slamPosition;
 
     public ParticleSystem impactParticleSystem;
+
+    public Transform cameraTracker;
    
 
     void Start()
@@ -77,6 +79,7 @@ public class Shield : MonoBehaviour
             charge = Mathf.Clamp(charge + Time.fixedDeltaTime, 0f, 1f);
             //Debug.Log("Charge:" + charge);
 
+            cameraTracker.localPosition = new Vector3(cameraTracker.localPosition.x, charge * 4f, cameraTracker.localPosition.z);
             transform.localPosition = Vector3.Lerp(normalPosition, chargedPosition, charge);
             yield return new WaitForFixedUpdate();
         }
@@ -85,6 +88,7 @@ public class Shield : MonoBehaviour
 
     private IEnumerator SlamShield()
     {
+        cameraTracker.localPosition = new Vector3(cameraTracker.localPosition.x, 0, cameraTracker.localPosition.z);
 
         Debug.Log("Slamming");
         Vector3 initalPosition = transform.localPosition;

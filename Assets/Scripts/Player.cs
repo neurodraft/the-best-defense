@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private Animator animator;
 
     public ParticleSystem damageParticleSystem;
+    public Transform cameraTracker;
+
 
     private bool isMoving = false;
     private bool isShieldActive;
@@ -190,6 +192,15 @@ public class Player : MonoBehaviour
         isShieldActive = val;
         shield.SetActive(val);
         animator.SetBool("isShieldActive", val);
+
+        if (val)
+        {
+            cameraTracker.localPosition = Vector3.forward * 4;
+        }
+        else
+        {
+            cameraTracker.localPosition = Vector3.zero;
+        }
     }
 
     /*
