@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
 
     public GameObject shield;
 
-    public MeshCollider shieldInteractionTrigger;
 
     private Animator animator;
 
