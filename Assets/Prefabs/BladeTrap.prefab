@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 6869035429012293800}
   - component: {fileID: 3666945752493871817}
   m_Layer: 0
-  m_Name: Arch
+  m_Name: Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
