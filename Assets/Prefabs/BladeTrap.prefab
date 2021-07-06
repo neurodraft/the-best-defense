@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2461412809711644586}
   - component: {fileID: 2461412809711644585}
   - component: {fileID: 2461412809711644584}
+  - component: {fileID: 2461412809711644591}
+  - component: {fileID: 2461412809711644587}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Untagged
