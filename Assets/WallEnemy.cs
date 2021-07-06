@@ -39,7 +39,7 @@ public class WallEnemy : MonoBehaviour
         {
             
             Vector3 goal = new Vector3(playerTransform.position.x, this.transform.position.y, playerTransform.position.z);
-            lookingAt = Vector3.Lerp(lookingAt, goal, Time.deltaTime*2);
+            lookingAt = Vector3.Lerp(lookingAt, goal, Time.deltaTime*4);
             headPivot.LookAt(lookingAt);
 
             timer += Time.deltaTime;
