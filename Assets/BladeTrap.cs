@@ -6,10 +6,13 @@ public class BladeTrap : MonoBehaviour
 {
     public int maxRotationDegree = 45;
     public float bladeSpeed = 1f;
+
+    public Transform rotatingPart;
+    private float randomValue;
     // Start is called before the first frame update
     void Start()
     {
-        
+        randomValue = Random.Range(0, Mathf.PI * 2);
     }
 
     // Update is called once per frame
@@ -20,6 +23,6 @@ public class BladeTrap : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.rotation = Quaternion.Euler(0f, 0f, maxRotationDegree * Mathf.Sin(Time.time * bladeSpeed));
+        rotatingPart.localRotation = Quaternion.Euler(0f, 0f, maxRotationDegree * Mathf.Sin(randomValue + Time.time * bladeSpeed));
     }
 }

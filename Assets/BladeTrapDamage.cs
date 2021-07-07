@@ -17,13 +17,20 @@ public class BladeTrapDamage : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Colliding with: " + collision.gameObject.ToString());
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Blade collision player");
+
+            GameObject other = collision.gameObject;
+
+            Vector3 direction = other.gameObject.transform.forward * -1;
+            Vector3 position = other.gameObject.transform.position;
+            EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", direction }, { "position", position } });
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {
