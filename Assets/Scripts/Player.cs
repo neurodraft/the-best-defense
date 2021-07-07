@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     private bool canControl = true;
     public float currentStamina;
-    public float maxStamina = 10.0f;
+    
 
     private void Start()
     {
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void setShieldActive(bool val)
+    public void setShieldActive(bool val)
     {
         isShieldActive = val;
         shield.SetActive(val);
@@ -231,7 +231,6 @@ public class Player : MonoBehaviour
             currentHealth -= 1;
         }
        
-
     }
     public float getCurrentHealth()
     {
@@ -245,15 +244,16 @@ public class Player : MonoBehaviour
     {
         return isShieldActive;
     }
-    public void setStamina()
+    public void updateStamina(float value)
     {
-        float timeValue = 10.0f;
-        while (isShieldActive)
-        {
-            timeValue -= Time.deltaTime;
-            currentStamina -= 1;
-        }
+        currentStamina = value;
+        
     }
+    public void addHealth(int value)
+    {
+        currentHealth += value;
+    }
+    
     
    
    

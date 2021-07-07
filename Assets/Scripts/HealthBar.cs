@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    
     public Player playerHealth;
-    public Image fillImage;
     private Slider slider;
 
     // Start is called before the first frame update
@@ -20,9 +20,6 @@ public class HealthBar : MonoBehaviour
     {
         float updateSlider = playerHealth.getCurrentHealth() / playerHealth.maxHealth;
         if (updateSlider > 0) { slider.value = updateSlider; }
-        else
-        {
-            slider.enabled = false;
-        }
+        
     }
 }

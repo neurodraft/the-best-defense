@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Projectile
   - Blade
+  - HealthPickUp
   layers:
   - Default
   - TransparentFX

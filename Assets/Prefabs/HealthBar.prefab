@@ -84,9 +84,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6468839496440282290}
   - component: {fileID: 6468839496440282291}
-  - component: {fileID: 6468839496440282284}
+  - component: {fileID: 274423696501796317}
   m_Layer: 5
-  m_Name: StatusBar
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6468839496440282284
+--- !u!114 &274423696501796317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48c4fa8709f5264f902d4179c13b53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imagem: {fileID: 0}
   playerHealth: {fileID: 0}
-  fillImage: {fileID: 6468839496476397213}
 --- !u!1 &6468839496476397283
 GameObject:
   m_ObjectHideFlags: 0
