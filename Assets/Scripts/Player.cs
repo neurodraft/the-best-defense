@@ -230,6 +230,7 @@ public class Player : MonoBehaviour
         {
             currentHealth -= 1;
         }
+        
        
     }
     public float getCurrentHealth()

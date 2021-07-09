@@ -7,6 +7,8 @@ TagManager:
   - Projectile
   - Blade
   - HealthPickUp
+  - FxTemporaire
+  - Sphere
   layers:
   - Default
   - TransparentFX
