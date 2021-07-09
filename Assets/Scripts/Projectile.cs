@@ -116,7 +116,7 @@ public class Projectile : MonoBehaviour
         }
 
 
-        if (!disappearing && ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spider") || collision.gameObject.CompareTag("Projectile"))))
+        if (!disappearing && ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spider") || collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Spawner"))))
         {
 
             Debug.Log(collision.collider.gameObject.name);
@@ -129,6 +129,10 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.CompareTag("Spider"))
             {
                 collision.gameObject.GetComponent<SpiderAI>().Die();
+            }
+            if (collision.gameObject.CompareTag("Spawner"))
+            {
+                collision.gameObject.GetComponent<SpiderSpawner>().Damage();
             }
 
             //normal = collision.gameObject.transform.forward;

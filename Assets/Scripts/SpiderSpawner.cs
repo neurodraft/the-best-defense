@@ -12,6 +12,12 @@ public class SpiderSpawner : MonoBehaviour
 
     public GameObject spiderPrefab;
 
+    private int health = 0;
+
+    private bool spawnerDestroyed = false;
+    public Transform spawner;
+    public ParticleSystem damageParticles;
+
 
     void Start()
     {
@@ -27,21 +33,66 @@ public class SpiderSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (Egg egg in eggs)
+        if (!spawnerDestroyed)
         {
-            egg.Update(Time.deltaTime);
+            foreach (Egg egg in eggs)
+            {
+                egg.Update(Time.deltaTime);
+            }
         }
 
     }
 
     public void SpiderDied(GameObject spider){
-        foreach (Egg egg in eggs)
+        if (!spawnerDestroyed)
         {
-            if(egg.spider == spider){
-                egg.Regrow();
-                return;
+            foreach (Egg egg in eggs)
+            {
+                if (egg.spider == spider)
+                {
+                    egg.Regrow();
+                    return;
+                }
             }
         }
+        
+    }
+
+    private IEnumerator Disappear()
+    {
+        float timer = 0f;
+        Vector3 target = Vector3.down;
+        while (spawner.localPosition != target)
+        {
+            timer += Time.fixedDeltaTime;
+
+            spawner.localPosition = Vector3.Lerp(spawner.localPosition, target, timer/16f);
+            
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    public void Damage()
+    {
+        if(!spawnerDestroyed){
+            damageParticles.Play(false);
+            if (health > 0)
+            {
+                health -= 1;
+            }
+            else
+            {
+                DestroySpawner();
+            }
+        }
+        
+    }
+
+    private void DestroySpawner()
+    {
+        GetComponent<CapsuleCollider>().enabled = false;
+        spawnerDestroyed = true;
+        StartCoroutine(Disappear());
     }
 
     private class Egg
@@ -92,7 +143,7 @@ public class SpiderSpawner : MonoBehaviour
         }
 
         private void SpawnSpider(){
-            GameObject spider = Instantiate(spawner.spiderPrefab, transform.parent);
+            GameObject spider = Instantiate(spawner.spiderPrefab, transform.parent.parent);
             spider.GetComponent<SpiderAI>().spawner = spawner;
             spider.transform.position = transform.position;
             this.spider = spider;

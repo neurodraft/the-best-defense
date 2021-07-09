@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed = 4.0f;
-    private float rotationSpeed = 4.0f;
+    private float rotationSpeed = 8.0f;
     private float gravityValue = -9.81f;
 
     public CameraHelper cameraHelper;

@@ -987,11 +987,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headPivot: {fileID: 6446730224526848216}
   emissionPoint: {fileID: 6446730224259315526}
+  eyeRenderer: {fileID: 6446730224010541147}
   projectilePrefab: {fileID: 5777418805134687180, guid: 7e941d4887ca07d4aafbfd8adc72018f,
     type: 3}
   interval: 2
-  shootForce: 8
-  eye: {fileID: 6446730224010541147}
+  shootForce: 4
+  rotationLimit: 180
 --- !u!135 &6446730225150452558
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1003,7 +1004,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6446730225634835969
 GameObject:

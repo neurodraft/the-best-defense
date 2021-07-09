@@ -171,7 +171,7 @@ SphereCollider:
   m_GameObject: {fileID: 2876415420875352761}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -304,6 +304,7 @@ GameObject:
   - component: {fileID: 9123297160140986282}
   - component: {fileID: 9123297160140986285}
   - component: {fileID: 9123297160140986284}
+  - component: {fileID: 1829752270636112177}
   m_Layer: 0
   m_Name: GroundEnemy
   m_TagString: Untagged
@@ -347,11 +348,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headPivot: {fileID: 9123297161606792250}
   emissionPoint: {fileID: 9123297161332999076}
+  eyeRenderer: {fileID: 9123297161150811321}
   projectilePrefab: {fileID: 5777418805134687180, guid: 7e941d4887ca07d4aafbfd8adc72018f,
     type: 3}
-  interval: 2
+  interval: 1
   shootForce: 4
-  eye: {fileID: 9123297161150811321}
+  rotationLimit: 0
 --- !u!135 &9123297160140986284
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -363,8 +365,22 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1829752270636112177
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9123297160140986283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!1 &9123297160633879267
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +667,7 @@ SphereCollider:
   m_GameObject: {fileID: 9123297161116906000}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -911,7 +927,7 @@ SphereCollider:
   m_GameObject: {fileID: 9123297161464457340}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1235,7 +1251,7 @@ SphereCollider:
   m_GameObject: {fileID: 9123297161713320867}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1449,7 +1465,7 @@ SphereCollider:
   m_GameObject: {fileID: 9123297161926930332}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
