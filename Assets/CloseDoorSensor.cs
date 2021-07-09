@@ -5,7 +5,7 @@ using UnityEngine;
 public class CloseDoorSensor : MonoBehaviour
 {
     public Transform door;
-    private bool isOpen = true;
+    //private bool isOpen = true;
     private float doorOpeningDuration = 5f;
     public float doorSpeed = 0.2f;
     private Vector3 targetPosition;
@@ -28,7 +28,7 @@ public class CloseDoorSensor : MonoBehaviour
         }
     }
 
-    private IEnumerator closeDoor()
+    /*private IEnumerator closeDoor()
     {
         isOpen = true;
         float timer = 0f;
@@ -42,5 +42,5 @@ public class CloseDoorSensor : MonoBehaviour
             door.position = Vector3.Lerp(defaultPosition, targetPosition, timer * doorSpeed);
             yield return null;
         }
-    }
+    }*/
 }

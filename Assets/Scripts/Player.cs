@@ -9,18 +9,19 @@ public class Player : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed = 4.0f;
-    private float rotationSpeed = 4.0f;
+    private float rotationSpeed = 8.0f;
     private float gravityValue = -9.81f;
 
     public CameraHelper cameraHelper;
 
     public GameObject shield;
 
-    public MeshCollider shieldInteractionTrigger;
 
     private Animator animator;
 
     public ParticleSystem damageParticleSystem;
+    public Transform cameraTracker;
+
 
     private bool isMoving = false;
     private bool isShieldActive;
@@ -50,12 +51,13 @@ public class Player : MonoBehaviour
         setShieldActive(false);
         StartCoroutine(DisableControl(1f));
 
-        ContactPoint contactPoint = (ContactPoint)message["contact_point"];
+        Vector3 direction = (Vector3)message["direction"];
+        Vector3 position = (Vector3)message["position"];
        
-        controller.Move(contactPoint.normal * -1);
+        controller.Move(direction);
         if(damageParticleSystem != null)
         {
-            damageParticleSystem.transform.position = contactPoint.point;
+            damageParticleSystem.transform.position = position;
             damageParticleSystem.Play();
         }
     }
@@ -191,6 +193,15 @@ public class Player : MonoBehaviour
         isShieldActive = val;
         shield.SetActive(val);
         animator.SetBool("isShieldActive", val);
+
+        if (val)
+        {
+            cameraTracker.localPosition = Vector3.forward * 4;
+        }
+        else
+        {
+            cameraTracker.localPosition = Vector3.zero;
+        }
     }
 
     /*
@@ -209,6 +220,7 @@ public class Player : MonoBehaviour
         // We dont want to push objects below us
         if (hit.moveDirection.y < -0.3)
         {
+            return;
             return;
         }
 

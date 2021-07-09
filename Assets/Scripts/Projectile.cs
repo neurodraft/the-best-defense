@@ -37,8 +37,8 @@ public class Projectile : MonoBehaviour
         {
             disappear();
         }
-        light.range = 2 + Mathf.PerlinNoise(Time.time*10f, 0);
-        light.intensity = 1 + Mathf.PerlinNoise(Time.time*10f, 0);
+        light.range = 2 + Mathf.PerlinNoise(Time.time*4f, 0);
+        light.intensity = 0.25f + Mathf.PerlinNoise(Time.time*4f, 0);
 
 
 
@@ -116,16 +116,28 @@ public class Projectile : MonoBehaviour
         }
 
 
-        if (!disappearing && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Projectile")))
+        if (!disappearing && ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spider") || collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Spawner"))))
         {
 
             Debug.Log(collision.collider.gameObject.name);
 
+            
             if (collision.gameObject.CompareTag("Player"))
             {
-                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "contact_point", collision.GetContact(0) } });
+                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", collision.GetContact(0).normal * -1 }, {"position", collision.GetContact(0).point } });
             }
-            
+            if (collision.gameObject.CompareTag("Spider"))
+            {
+                collision.gameObject.GetComponent<SpiderAI>().Die();
+            }
+            if (collision.gameObject.CompareTag("Spawner"))
+            {
+                collision.gameObject.GetComponent<SpiderSpawner>().Damage();
+            }
+
+            //normal = collision.gameObject.transform.forward;
+
+
             disappear();
         }
     }

@@ -21,7 +21,9 @@ public class SpikesDamage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }});
+            Vector3 direction = other.gameObject.transform.forward * -1;
+            Vector3 position = other.gameObject.transform.position;
+            EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", direction }, { "position", position } });
         }
     }
 }

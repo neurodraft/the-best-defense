@@ -44,13 +44,26 @@ public class SpikeTrap : MonoBehaviour
         Vector3 targetPosition = spikes.position + Vector3.up * 1.75f;
         Vector3 originalPosition = spikes.position;
 
+        float riseDuration = spikesDuration / 4f;
+        float fallDuration = 3 * riseDuration;
+
+
         damageCollider.enabled = true;
-        while (timer<spikesDuration)
+        while (timer<riseDuration)
         {
             timer += Time.fixedDeltaTime;
-            float fraction = timer / spikesDuration;
-            float weight = Mathf.Sin(Mathf.PI * fraction);
+            float fraction = timer / riseDuration;
+            float weight = Mathf.Sin(Mathf.PI/2 * fraction);;
             spikes.position = Vector3.Lerp(originalPosition, targetPosition, weight);
+            yield return new WaitForFixedUpdate();
+        }
+        timer = 0;
+        while (timer < fallDuration)
+        {
+            timer += Time.fixedDeltaTime;
+            float fraction = timer / fallDuration;
+            float weight = Mathf.Sin(Mathf.PI/2 * fraction);
+            spikes.position = Vector3.Lerp(targetPosition, originalPosition, weight);
             yield return new WaitForFixedUpdate();
         }
 
