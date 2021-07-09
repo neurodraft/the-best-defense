@@ -327,8 +327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spikes: {fileID: 4982215006798110445}
-  spikesDuration: 5
-  cooldown: 5
+  spikesDuration: 2
+  cooldown: 2
   damageCollider: {fileID: 5268913056284302076}
 --- !u!1 &1984069553245782391
 GameObject:
