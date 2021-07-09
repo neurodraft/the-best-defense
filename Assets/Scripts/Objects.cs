@@ -10,10 +10,12 @@ public class Objects : MonoBehaviour
     public AudioClip vaseDestroySound;
     private AudioSource audioSource;
 
+    private bool destroyed = false;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,15 +23,35 @@ public class Objects : MonoBehaviour
     {
 
     }
+
+    private IEnumerator Destroyed()
+    {
+        destroyed = true;
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
+
+        yield return new WaitForSeconds(2f);
+
+        Destroy(gameObject);
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Projectile"))
+        if (!destroyed)
         {
-            
-            Destroy(gameObject);
-            Instantiate(sphere, transformPosition.position + new Vector3(0, 2f, 0), transform.rotation, transform.parent);
-            audioSource.PlayOneShot(vaseDestroySound);
+            if (other.gameObject.CompareTag("Projectile"))
+            {
+                Instantiate(sphere, transformPosition.position + Vector3.up, transform.rotation, transform.parent);
+                if (vaseDestroySound != null)
+                {
+                    audioSource.PlayOneShot(vaseDestroySound);
+
+                }
+                StartCoroutine(Destroyed());
+            }
         }
+        
     }
 }
 

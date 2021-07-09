@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         float updateSlider = playerHealth.getCurrentHealth() / playerHealth.maxHealth;
-        if (updateSlider > 0) { slider.value = updateSlider; }
+        slider.value = updateSlider;
         
     }
 }
