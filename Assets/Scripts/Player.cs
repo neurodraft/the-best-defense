@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private float playerSpeed = 4.0f;
     private float rotationSpeed = 8.0f;
     private float gravityValue = -9.81f;
+    private bool hasKey = false;
 
     public CameraHelper cameraHelper;
 
@@ -38,7 +39,15 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         EventManager.StartListening("gameOver", ResetState);
         EventManager.StartListening("player_damage", HandleDamage);
+        EventManager.StartListening("key_picked_up", KeyPickedUp);
         currentStamina = 10.0f;
+    }
+
+    private void KeyPickedUp(Dictionary<String,object> message)
+    {
+        hasKey = true;
+        Debug.Log("Player has key: " + hasKey);
+        //Show key in UI
     }
 
     public void ResetState(Dictionary<string, object> message)
