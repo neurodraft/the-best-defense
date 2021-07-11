@@ -9,7 +9,7 @@ public class Stamina : MonoBehaviour
     public Player playerStamina;
     private Slider slider;
     private float timer = 10.0f;
-    
+
 
 
 
@@ -17,34 +17,15 @@ public class Stamina : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
-        slider.value = 10.0f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        
 
-        if (playerStamina.getIsShieldActive() && playerStamina.getCurrentStamina()>0.0f)
-        {
 
-            timer -= Time.deltaTime;
-            playerStamina.updateStamina(timer);
-            float updateStaminaSlider = playerStamina.getCurrentStamina()/10;
-            slider.value = updateStaminaSlider;
 
-        }
-        else if(!playerStamina.getIsShieldActive() && playerStamina.getCurrentStamina()<10.0f)
-        {
-            timer += Time.deltaTime;
-            playerStamina.updateStamina(timer);
-            float updateStaminaSlider = playerStamina.getCurrentStamina() / 10;
-            slider.value = updateStaminaSlider;
-        }
-        if(playerStamina.getIsShieldActive() && playerStamina.getCurrentStamina() <= 0)
-        {
-            playerStamina.setShieldActive(false);
-        }
     }
 }

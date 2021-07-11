@@ -30,15 +30,14 @@ public class Sphere : MonoBehaviour
     {
         if (!destroyed)
         {
-            if (other.gameObject.CompareTag("Player") && other.GetComponent<Player>().getCurrentHealth() < 10)
+            if (other.gameObject.CompareTag("Player") )
             {
                 if (sphereSound != null)
                 {
                     audioSource.PlayOneShot(sphereSound);
 
                 }
-                other.GetComponent<Player>().addHealth(1);
-
+                
                 StartCoroutine(Destroyed());
 
             }

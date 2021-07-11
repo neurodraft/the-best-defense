@@ -25,12 +25,12 @@ public class Player : MonoBehaviour
 
     private bool isMoving = false;
     private bool isShieldActive;
-    public float maxHealth=10.0f;
     public float currentHealth=10.0f;
 
     private bool canControl = true;
     public float currentStamina;
-    
+    private float modifyingStamina = 10.0f;
+
 
     private void Start()
     {
@@ -46,6 +46,10 @@ public class Player : MonoBehaviour
 
     }
 
+    public void AddHealth(Dictionary<string, object> message)
+    {
+
+    }
     public void HandleDamage(Dictionary<string, object> message)
     {
         setShieldActive(false);
@@ -235,15 +239,28 @@ public class Player : MonoBehaviour
         body.velocity = pushDir * pushPower;
     }
     */
-
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (!isShieldActive && collision.gameObject.CompareTag("Projectile"))
+        if (!isShieldActive && (collision.gameObject.CompareTag("Projectile") ))
         {
             currentHealth -= 1;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Sphere") && currentHealth<10)
+        {
+            currentHealth += 1;
+            
+        }
+        if (other.gameObject.CompareTag("Sphere") && currentStamina < 10)
+        {
+            modifyingStamina += 1;
+        }
         
-       
+
+
     }
     public float getCurrentHealth()
     {
@@ -266,9 +283,32 @@ public class Player : MonoBehaviour
     {
         currentHealth += value;
     }
+    public void updatingStamina()
+    {
+        
+        if (getIsShieldActive() && getCurrentStamina() > 0.0f)
+        {
+            
+            modifyingStamina -= Time.deltaTime;
+            updateStamina(modifyingStamina);
+            
+
+        }
+        else if (!getIsShieldActive() && getCurrentStamina() < 10.0f)
+        {
+            modifyingStamina += Time.deltaTime;
+            updateStamina(modifyingStamina);
+            
+        }
+        if (getIsShieldActive() && getCurrentStamina() <= 0)
+        {
+            setShieldActive(false);
+        }
+    }
+}
     
     
    
    
 
-}
+
