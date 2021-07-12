@@ -116,7 +116,7 @@ public class Projectile : MonoBehaviour
         }
 
 
-        if (!disappearing && ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spider") || collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Spawner"))))
+        if (!disappearing && ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spider") || collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Spawner") || collision.gameObject.CompareTag("Plant"))))
         {
 
             Debug.Log(collision.collider.gameObject.name);
@@ -124,7 +124,7 @@ public class Projectile : MonoBehaviour
             
             if (collision.gameObject.CompareTag("Player"))
             {
-                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", collision.GetContact(0).normal * -1 }, {"position", collision.GetContact(0).point } });
+                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10f }, { "direction", collision.GetContact(0).normal * -1 }, {"position", collision.GetContact(0).point } });
             }
             if (collision.gameObject.CompareTag("Spider"))
             {
@@ -133,6 +133,10 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.CompareTag("Spawner"))
             {
                 collision.gameObject.GetComponent<SpiderSpawner>().Damage();
+            }
+            if (collision.gameObject.CompareTag("Plant"))
+            {
+                collision.gameObject.GetComponent<WallEnemy>().Retract();
             }
 
             //normal = collision.gameObject.transform.forward;

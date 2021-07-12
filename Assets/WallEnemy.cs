@@ -26,10 +26,18 @@ public class WallEnemy : MonoBehaviour
     private Vector3 previousPlayerPosition;
     private bool trackingPlayer = false;
 
+    private Animator anim;
+
+    private bool retracted = false;
+
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
         lookingAt = emissionPoint.position + Vector3.forward;
         eyeEmissionColor = eyeRenderer.material.GetColor("_EmissionColor");
 
@@ -45,7 +53,7 @@ public class WallEnemy : MonoBehaviour
     {
         eyeRenderer.material.SetColor("_EmissionColor", Color.Lerp(Color.black, eyeEmissionColor, timer/interval));
 
-        if (playerTransform != null)
+        if (!retracted && playerTransform != null)
         {
 
             Vector3 goal = new Vector3(playerTransform.position.x, emissionPoint.position.y, playerTransform.position.z);
@@ -66,7 +74,10 @@ public class WallEnemy : MonoBehaviour
             if(rotationLimit == 0 || Mathf.Abs(Vector3.Angle(transform.forward, lookingAt - headPivot.position)) <= rotationLimit/2)
             {
                 headPivot.LookAt(lookingAt);
-
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
 
                 timer += Time.deltaTime;
                 if (timer >= interval)
@@ -88,6 +99,7 @@ public class WallEnemy : MonoBehaviour
                     }
 
                     timer = 0;
+                    audioSource.Stop();
 
                 }
             }
@@ -110,6 +122,23 @@ public class WallEnemy : MonoBehaviour
         }
     }
 
+    public void Retract()
+    {
+        retracted = true;
+        anim.enabled = true;
+        anim.SetTrigger("Retract");
+        StartCoroutine(ExtendAfter(8));
+    }
+
+    private IEnumerator ExtendAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        anim.SetTrigger("Extend");
+        yield return new WaitForSeconds(0.5f);
+        anim.enabled = false;
+        retracted = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -124,10 +153,12 @@ public class WallEnemy : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player exited.");
+            audioSource.Stop();
 
             timer = 0;
             playerTransform = null;
             trackingPlayer = false;
+
         }
     }
 }

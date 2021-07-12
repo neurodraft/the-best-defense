@@ -9,6 +9,8 @@ TagManager:
   - Shield
   - Spider
   - Spawner
+  - Sphere
+  - Plant
   layers:
   - Default
   - TransparentFX

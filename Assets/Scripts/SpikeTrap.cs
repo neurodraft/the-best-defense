@@ -31,6 +31,7 @@ public class SpikeTrap : MonoBehaviour
             cooldownTimer += Time.deltaTime;
             if (cooldownTimer >= cooldown){
                 StartCoroutine(spikesRoutine());
+                GetComponent<AudioSource>().Play();
                 cooldownTimer = 0;
             }
         }

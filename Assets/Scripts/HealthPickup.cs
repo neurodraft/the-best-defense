@@ -9,6 +9,7 @@ public class HealthPickup : MonoBehaviour
     private Vector3 sphereStartLocalPosition;
     
     
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,31 +23,41 @@ public class HealthPickup : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (playerTransform == null)
-        {
-            if (sphere.localPosition != sphereStartLocalPosition)
+        if (sphere != null) {
+            if (playerTransform == null)
             {
-                sphere.localPosition = Vector3.Lerp(sphere.localPosition, sphereStartLocalPosition, Time.deltaTime*2f);
+
+                if (sphere.localPosition != sphereStartLocalPosition)
+                {
+
+                    sphere.localPosition = Vector3.Lerp(sphere.localPosition, sphereStartLocalPosition, Time.deltaTime * 2f);
+                }
+            }
+            else
+            {
+                Vector3 targetPosition = new Vector3(playerTransform.position.x, sphere.position.y, playerTransform.position.z);
+                sphere.position = Vector3.Lerp(sphere.position, targetPosition, Time.deltaTime * 2f);
+
             }
         }
-        else
-        {
-            Vector3 targetPosition = new Vector3(playerTransform.position.x, sphere.position.y, playerTransform.position.z);
-            sphere.position = Vector3.Lerp(sphere.position, targetPosition, Time.deltaTime*2f);
-        }
+
+
+        
+
+
     }
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             playerTransform = other.gameObject.transform;
-            
         }
     }
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            
             playerTransform = null;
         }
     }

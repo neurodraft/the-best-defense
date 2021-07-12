@@ -160,7 +160,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -177,7 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStamina: {fileID: 0}
-  fillImage: {fileID: 0}
 --- !u!1 &6468839496476397283
 GameObject:
   m_ObjectHideFlags: 0

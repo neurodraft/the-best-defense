@@ -26,21 +26,32 @@ public class Player : MonoBehaviour
 
     private bool isMoving = false;
     private bool isShieldActive;
-    public float maxHealth=10.0f;
-    public float currentHealth=10.0f;
+
+    public float maxHealth=100.0f;
+    public float currentHealth = 0f;
+
+    public float maxStamina = 100.0f;
+    public float currentStamina = 0f;
+
 
     private bool canControl = true;
-    public float currentStamina;
-    public float maxStamina = 10.0f;
+
+    public AudioClip hurtSound;
+    private AudioSource audioSource;
+    
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
         EventManager.StartListening("gameOver", ResetState);
         EventManager.StartListening("player_damage", HandleDamage);
+
+        addHealth(maxHealth);
+        addStamina(maxStamina);
         EventManager.StartListening("key_picked_up", KeyPickedUp);
-        currentStamina = 10.0f;
+
     }
 
     private void KeyPickedUp(Dictionary<String,object> message)
@@ -55,10 +66,20 @@ public class Player : MonoBehaviour
 
     }
 
+    public void AddHealth(Dictionary<string, object> message)
+    {
+
+    }
     public void HandleDamage(Dictionary<string, object> message)
     {
         setShieldActive(false);
         StartCoroutine(DisableControl(1f));
+
+        audioSource.PlayOneShot(hurtSound);
+
+        float amount = (float)message["amount"];
+        addHealth(-amount);
+
 
         Vector3 direction = (Vector3)message["direction"];
         Vector3 position = (Vector3)message["position"];
@@ -69,6 +90,7 @@ public class Player : MonoBehaviour
             damageParticleSystem.transform.position = position;
             damageParticleSystem.Play();
         }
+
     }
 
     IEnumerator DisableControl(float duration)
@@ -131,6 +153,13 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if(currentStamina < maxStamina)
+            {
+                float reg = 5f * Time.deltaTime;
+                Debug.Log("Regenerating " + reg +  " stamina.");
+                addStamina(reg);
+            }
+            
             if (move != Vector3.zero)
             {
                 gameObject.transform.forward = move;
@@ -197,7 +226,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void setShieldActive(bool val)
+    public void setShieldActive(bool val)
     {
         isShieldActive = val;
         shield.SetActive(val);
@@ -244,14 +273,27 @@ public class Player : MonoBehaviour
         body.velocity = pushDir * pushPower;
     }
     */
-
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (!isShieldActive && collision.gameObject.CompareTag("Projectile"))
+        if (!isShieldActive && (collision.gameObject.CompareTag("Projectile") ))
         {
             currentHealth -= 1;
         }
-       
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Sphere") && currentHealth<10)
+        {
+            currentHealth += 1;
+            
+        }
+        if (other.gameObject.CompareTag("Sphere") && currentStamina < 10)
+        {
+            modifyingStamina += 1;
+        }
+        
+
 
     }
     public float getCurrentHealth()
@@ -266,17 +308,43 @@ public class Player : MonoBehaviour
     {
         return isShieldActive;
     }
-    /*public void setStamina()
+    public void addStamina(float value)
     {
-        float timeValue = 10.0f;
-        while (isShieldActive)
+        currentStamina = Mathf.Clamp(currentStamina + value, 0, maxStamina);
+        EventManager.TriggerEvent("player_stamina_update", new Dictionary<string, object> { { "current", currentStamina }, { "max", maxStamina } });
+
+    }
+    public void addHealth(float value)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
+        EventManager.TriggerEvent("player_health_update", new Dictionary<string, object> { { "current", currentHealth }, { "max", maxHealth } });
+    }
+    public void updatingStamina()
+    {
+        
+        if (getIsShieldActive() && getCurrentStamina() > 0.0f)
         {
-            timeValue -= Time.deltaTime;
-            currentStamina -= 1;
+            
+            modifyingStamina -= Time.deltaTime;
+            updateStamina(modifyingStamina);
+            
+
         }
-    }*/
+        else if (!getIsShieldActive() && getCurrentStamina() < 10.0f)
+        {
+            modifyingStamina += Time.deltaTime;
+            updateStamina(modifyingStamina);
+            
+        }
+        if (getIsShieldActive() && getCurrentStamina() <= 0)
+        {
+            setShieldActive(false);
+        }
+    }
+}
+    
     
    
    
 
-}
+

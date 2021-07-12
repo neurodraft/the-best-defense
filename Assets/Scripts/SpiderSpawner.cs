@@ -18,9 +18,12 @@ public class SpiderSpawner : MonoBehaviour
     public Transform spawner;
     public ParticleSystem damageParticles;
 
+    private AudioSource audioSource;
+
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         eggs = new List<Egg>();
 
         for (int i = 0; i < eggControllers.Length; i++)
@@ -74,6 +77,7 @@ public class SpiderSpawner : MonoBehaviour
 
     public void Damage()
     {
+        audioSource.Play();
         if(!spawnerDestroyed){
             damageParticles.Play(false);
             if (health > 0)
