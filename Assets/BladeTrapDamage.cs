@@ -39,7 +39,11 @@ public class BladeTrapDamage : MonoBehaviour
             Debug.Log("Blade trigger player");
             Vector3 direction = other.gameObject.transform.forward * -1;
             Vector3 position = other.gameObject.transform.position;
-            EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", direction }, { "position", position } });
+            EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", bladeDamage }, { "direction", direction }, { "position", position } });
+        }
+        if (other.CompareTag("Spider"))
+        {
+            other.gameObject.GetComponent<SpiderAI>().Die();
         }
     }
 }
