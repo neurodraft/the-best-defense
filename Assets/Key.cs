@@ -26,7 +26,7 @@ public class Key : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GetComponent<AudioSource>().Play();
+            //GetComponent<AudioSource>().Play();
             EventManager.TriggerEvent("key_picked_up", null);
             this.gameObject.SetActive(false);
             
