@@ -153,10 +153,12 @@ public class WallEnemy : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player exited.");
+            audioSource.Stop();
 
             timer = 0;
             playerTransform = null;
             trackingPlayer = false;
+
         }
     }
 }

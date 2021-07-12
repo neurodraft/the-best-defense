@@ -25,11 +25,15 @@ public class Player : MonoBehaviour
 
     private bool isMoving = false;
     private bool isShieldActive;
-    public float maxHealth=10.0f;
-    public float currentHealth=10.0f;
+
+    public float maxHealth=100.0f;
+    public float currentHealth = 0f;
+
+    public float maxStamina = 100.0f;
+    public float currentStamina = 0f;
+
 
     private bool canControl = true;
-    public float currentStamina;
 
     public AudioClip hurtSound;
     private AudioSource audioSource;
@@ -42,7 +46,9 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         EventManager.StartListening("gameOver", ResetState);
         EventManager.StartListening("player_damage", HandleDamage);
-        currentStamina = 10.0f;
+
+        addHealth(maxHealth);
+        addStamina(maxStamina);
     }
 
     public void ResetState(Dictionary<string, object> message)
@@ -57,6 +63,10 @@ public class Player : MonoBehaviour
 
         audioSource.PlayOneShot(hurtSound);
 
+        float amount = (float)message["amount"];
+        addHealth(-amount);
+
+
         Vector3 direction = (Vector3)message["direction"];
         Vector3 position = (Vector3)message["position"];
        
@@ -66,6 +76,7 @@ public class Player : MonoBehaviour
             damageParticleSystem.transform.position = position;
             damageParticleSystem.Play();
         }
+
     }
 
     IEnumerator DisableControl(float duration)
@@ -128,6 +139,13 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if(currentStamina < maxStamina)
+            {
+                float reg = 5f * Time.deltaTime;
+                Debug.Log("Regenerating " + reg +  " stamina.");
+                addStamina(reg);
+            }
+            
             if (move != Vector3.zero)
             {
                 gameObject.transform.forward = move;
@@ -263,14 +281,16 @@ public class Player : MonoBehaviour
     {
         return isShieldActive;
     }
-    public void updateStamina(float value)
+    public void addStamina(float value)
     {
-        currentStamina = value;
-        
+        currentStamina = Mathf.Clamp(currentStamina + value, 0, maxStamina);
+        EventManager.TriggerEvent("player_stamina_update", new Dictionary<string, object> { { "current", currentStamina }, { "max", maxStamina } });
+
     }
-    public void addHealth(int value)
+    public void addHealth(float value)
     {
-        currentHealth += value;
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
+        EventManager.TriggerEvent("player_health_update", new Dictionary<string, object> { { "current", currentHealth }, { "max", maxHealth } });
     }
     
     

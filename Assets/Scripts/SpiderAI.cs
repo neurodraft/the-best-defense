@@ -154,7 +154,7 @@ public class SpiderAI : MonoBehaviour
             Debug.Log(hit.collider.gameObject);
             if (hit.collider.gameObject.CompareTag("Player"))
             {
-                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", transform.forward }, { "position", transform.position + transform.forward + Vector3.up } });
+                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10f }, { "direction", transform.forward }, { "position", transform.position + transform.forward + Vector3.up } });
             }
             if (hit.collider.gameObject.CompareTag("Shield"))
             {

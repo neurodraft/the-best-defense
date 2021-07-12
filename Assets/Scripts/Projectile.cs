@@ -124,7 +124,7 @@ public class Projectile : MonoBehaviour
             
             if (collision.gameObject.CompareTag("Player"))
             {
-                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", collision.GetContact(0).normal * -1 }, {"position", collision.GetContact(0).point } });
+                EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10f }, { "direction", collision.GetContact(0).normal * -1 }, {"position", collision.GetContact(0).point } });
             }
             if (collision.gameObject.CompareTag("Spider"))
             {

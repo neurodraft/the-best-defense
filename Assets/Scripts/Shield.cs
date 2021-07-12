@@ -51,6 +51,7 @@ public class Shield : MonoBehaviour
             slamming = true;
             StopCoroutine(ChargeSlam());
             StartCoroutine(SlamShield());
+            transform.parent.gameObject.GetComponent<Player>().addStamina(-10f);
         }
 
         /*
