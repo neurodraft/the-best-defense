@@ -116,7 +116,7 @@ public class Projectile : MonoBehaviour
         }
 
 
-        if (!disappearing && ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spider") || collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Spawner"))))
+        if (!disappearing && ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spider") || collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Spawner") || collision.gameObject.CompareTag("Plant"))))
         {
 
             Debug.Log(collision.collider.gameObject.name);
@@ -133,6 +133,10 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.CompareTag("Spawner"))
             {
                 collision.gameObject.GetComponent<SpiderSpawner>().Damage();
+            }
+            if (collision.gameObject.CompareTag("Plant"))
+            {
+                collision.gameObject.GetComponent<WallEnemy>().Retract();
             }
 
             //normal = collision.gameObject.transform.forward;

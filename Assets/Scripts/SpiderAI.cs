@@ -11,6 +11,12 @@ public class SpiderAI : MonoBehaviour
     private NavMeshAgent agent;
     Animator anim;
 
+    public AudioClip attackSound;
+    public AudioClip deathSound;
+
+
+    private AudioSource audioSource;
+
 
 
     private Vector3 initialPosition;
@@ -19,6 +25,7 @@ public class SpiderAI : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
 
         agent = GetComponent<NavMeshAgent>();
@@ -56,13 +63,34 @@ public class SpiderAI : MonoBehaviour
         
     }
 
+    public void Push(Vector3 force)
+    {
+        StartCoroutine(PushCoroutine(force));
+    }
+
+    private IEnumerator PushCoroutine(Vector3 force)
+    {
+        agent.ResetPath();
+        agent.enabled = false;
+        Vector3 originalPosition = transform.position;
+        Vector3 targetPosition = transform.position + force;
+        float timer = 0;
+        while(timer < 1)
+        {
+            transform.position = Vector3.Lerp(originalPosition, targetPosition, timer);
+            timer += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        agent.enabled = true;
+    }
+
     public void Die()
     {
         agent.enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Animator>().SetTrigger("isDead");
-        
-
+        audioSource.PlayOneShot(deathSound);
+        StopAllCoroutines();
         StartCoroutine(Disappear());
 
     }
@@ -117,7 +145,7 @@ public class SpiderAI : MonoBehaviour
 
     public void DealDamage()
     {
-
+        audioSource.PlayOneShot(attackSound);
         RaycastHit hit;
         LayerMask mask = LayerMask.GetMask("Player and Shield");
 
@@ -127,6 +155,10 @@ public class SpiderAI : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Player"))
             {
                 EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", transform.forward }, { "position", transform.position + transform.forward + Vector3.up } });
+            }
+            if (hit.collider.gameObject.CompareTag("Shield"))
+            {
+                hit.collider.gameObject.GetComponent<Shield>().Defended();
             }
         }
 

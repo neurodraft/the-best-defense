@@ -18,6 +18,7 @@ public class EggController : MonoBehaviour
     }
     public void Destroy()
     {
+        GetComponent<AudioSource>().Play();
         _full.gameObject.SetActive(false);
         _damaged.gameObject.SetActive(true);
         _particleSystem.Play();
