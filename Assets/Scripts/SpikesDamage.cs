@@ -19,11 +19,19 @@ public class SpikesDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Spikes: " + other.gameObject);
+
         if (other.gameObject.CompareTag("Player"))
         {
             Vector3 direction = other.gameObject.transform.forward * -1;
             Vector3 position = other.gameObject.transform.position;
             EventManager.TriggerEvent("player_damage", new Dictionary<string, object> { { "amount", 10 }, { "direction", direction }, { "position", position } });
+        }
+
+        if(other.gameObject.CompareTag("Spider"))
+        {
+            Debug.Log("Spider!");
+            other.gameObject.GetComponent<SpiderAI>().Die();
         }
     }
 }

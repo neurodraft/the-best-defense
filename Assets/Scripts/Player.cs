@@ -32,10 +32,15 @@ public class Player : MonoBehaviour
     private float modifyingStamina = 10.0f;
 
 
+    public AudioClip hurtSound;
+    private AudioSource audioSource;
+    
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
         EventManager.StartListening("gameOver", ResetState);
         EventManager.StartListening("player_damage", HandleDamage);
         currentStamina = 10.0f;
@@ -54,6 +59,8 @@ public class Player : MonoBehaviour
     {
         setShieldActive(false);
         StartCoroutine(DisableControl(1f));
+
+        audioSource.PlayOneShot(hurtSound);
 
         Vector3 direction = (Vector3)message["direction"];
         Vector3 position = (Vector3)message["position"];

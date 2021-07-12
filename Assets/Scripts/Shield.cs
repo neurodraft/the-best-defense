@@ -23,13 +23,16 @@ public class Shield : MonoBehaviour
     public ParticleSystem impactParticleSystem;
 
     public Transform cameraTracker;
-   
+
+    private AudioSource audioSource;
+
 
     void Start()
     {
         normalPosition = transform.localPosition;
         chargedPosition = normalPosition - new Vector3(0, 0, 0.1f);
         slamPosition = normalPosition + new Vector3(0, 0, 0.1f);
+        audioSource = GetComponent<AudioSource>();
 
         //this.animator = GetComponent<Animator>();
     }
@@ -37,11 +40,12 @@ public class Shield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!charging && !slamming && Input.GetMouseButtonDown(0))
+        if (!charging && !slamming && Input.GetMouseButtonDown(0))
         {
             charging = true;
             StartCoroutine(ChargeSlam());
-        } else if(charging && !slamming && Input.GetMouseButtonUp(0))
+        }
+        else if (charging && !slamming && Input.GetMouseButtonUp(0))
         {
             charging = false;
             slamming = true;
@@ -93,6 +97,28 @@ public class Shield : MonoBehaviour
         Debug.Log("Slamming");
         Vector3 initalPosition = transform.localPosition;
         float slamTimer = 0;
+
+        LayerMask mask = LayerMask.GetMask("Default");
+
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 0.5f, transform.forward, 1f, mask);
+
+        foreach (RaycastHit hit in hits)
+        {
+            Debug.Log(hit.collider.gameObject);
+            if (hit.collider.gameObject.CompareTag("Spider"))
+            {
+                Vector3 force = transform.forward * charge * 4;
+                hit.collider.gameObject.gameObject.GetComponent<SpiderAI>().Push(force);
+                if (impactParticleSystem != null)
+                {
+
+                    impactParticleSystem.Play();
+                }
+                audioSource.Play();
+            }
+        }
+
+
         boosting = true;
         while (slamTimer < 2f)
         {
@@ -121,28 +147,51 @@ public class Shield : MonoBehaviour
         boosting = false;
     }
 
+    public void Defended()
+    {
+        impactParticleSystem.Play();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Projectile"))
         {
             Projectile projectile;
-            if(collision.gameObject.TryGetComponent<Projectile>(out projectile)){
+            if (collision.gameObject.TryGetComponent<Projectile>(out projectile))
+            {
                 if (boosting)
                 {
                     projectile.Boost(charge);
 
-                    if(impactParticleSystem != null)
+                    if (impactParticleSystem != null)
                     {
-                        
+
                         impactParticleSystem.Play();
                     }
-                } else
+                }
+                else
                 {
                     projectile.disappear();
                 }
             }
         }
+
+        //if (collision.gameObject.CompareTag("Spider"))
+        //{
+
+        //    if (boosting)
+        //    {
+        //        Vector3 force = transform.forward * charge * 4;
+        //        collision.gameObject.GetComponent<SpiderAI>().Push(force);
+        //        if (impactParticleSystem != null)
+        //        {
+
+        //            impactParticleSystem.Play();
+        //        }
+        //    }
+        //}
+
     }
-    
+
 
 }

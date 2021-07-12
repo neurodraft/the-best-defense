@@ -14,6 +14,7 @@ public class PressurePlate : MonoBehaviour
     void Start()
     {
         defaultPosition = pressurePlate.position;
+        StartCoroutine(Cycle());
     }
 
     // Update is called once per frame
@@ -22,34 +23,48 @@ public class PressurePlate : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        StopCoroutine(Cycle());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Pressure plate on trigger enter");
-        isPressed = true;
-        StartCoroutine(StartShooting());
-        pressurePlate.position += new Vector3(0, -0.1f, 0);
+        if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Spider"))
+        {
+            Debug.Log("Pressure plate on trigger enter");
+            isPressed = true;
+            pressurePlate.position = defaultPosition - new Vector3(0, 0.1f, 0);
+        }
+        
             
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Pressure plate on trigger exit");
-        pressurePlate.position = defaultPosition;
-        isPressed = false;
-        StopCoroutine(StartShooting());
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Spider"))
+        {
+            Debug.Log("Pressure plate on trigger exit");
+            pressurePlate.position = defaultPosition;
+            isPressed = false;
+        }
     }
 
-    private IEnumerator StartShooting()
+    private IEnumerator Cycle()
     {
-
-        while (isPressed)
+        while (true)
         {
-            foreach (RemotelyActivatable emitter in emitters)
+            if (isPressed)
             {
-                emitter.ActivateRemotely();
+                foreach (RemotelyActivatable emitter in emitters)
+                {
+                    emitter.ActivateRemotely();
+                }
             }
             yield return new WaitForSeconds(1f);
         }
+        
+
            
     }
 
