@@ -281,21 +281,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Sphere") && currentHealth<10)
-        {
-            currentHealth += 1;
-            
-        }
-        if (other.gameObject.CompareTag("Sphere") && currentStamina < 10)
-        {
-            modifyingStamina += 1;
-        }
-        
-
-
-    }
+   
     public float getCurrentHealth()
     {
         return currentHealth;
@@ -319,28 +305,7 @@ public class Player : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
         EventManager.TriggerEvent("player_health_update", new Dictionary<string, object> { { "current", currentHealth }, { "max", maxHealth } });
     }
-    public void updatingStamina()
-    {
-        
-        if (getIsShieldActive() && getCurrentStamina() > 0.0f)
-        {
-            
-            modifyingStamina -= Time.deltaTime;
-            updateStamina(modifyingStamina);
-            
-
-        }
-        else if (!getIsShieldActive() && getCurrentStamina() < 10.0f)
-        {
-            modifyingStamina += Time.deltaTime;
-            updateStamina(modifyingStamina);
-            
-        }
-        if (getIsShieldActive() && getCurrentStamina() <= 0)
-        {
-            setShieldActive(false);
-        }
-    }
+    
 }
     
     

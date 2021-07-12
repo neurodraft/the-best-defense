@@ -73,6 +73,7 @@ MonoBehaviour:
   cameraTracker: {fileID: 6967507132251587952}
   maxHealth: 10
   currentHealth: 10
+  maxStamina: 100
   currentStamina: 10
   hurtSound: {fileID: 8300000, guid: 8f6ccffc259352346a2fff1bb092f856, type: 3}
 --- !u!82 &2567321580938895978
