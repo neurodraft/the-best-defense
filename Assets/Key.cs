@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyRotation : MonoBehaviour
+public class Key : MonoBehaviour
 {
     public float rotationSpeed = 100f;
     // Start is called before the first frame update
@@ -20,6 +20,17 @@ public class KeyRotation : MonoBehaviour
     private void FixedUpdate()
     {
         transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Key Trigger");
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player Trigger Key");
+            EventManager.TriggerEvent("key_picked_up", null);
+            this.gameObject.SetActive(false);
+        }
     }
 
 }
