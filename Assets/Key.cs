@@ -24,12 +24,12 @@ public class Key : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Key Trigger");
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Trigger Key");
+            GetComponent<AudioSource>().Play();
             EventManager.TriggerEvent("key_picked_up", null);
             this.gameObject.SetActive(false);
+            
         }
     }
 
