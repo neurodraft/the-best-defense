@@ -112,6 +112,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 177490809411942637, guid: c9a85fa47eacaa746a935ae61c366a49,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9a85fa47eacaa746a935ae61c366a49, type: 3}
 --- !u!4 &820649687294228816 stripped
@@ -120,6 +125,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 654458430224859580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &820649687294228780 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 177490809411942544, guid: c9a85fa47eacaa746a935ae61c366a49,
+    type: 3}
+  m_PrefabInstance: {fileID: 654458430224859580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff28b56daa15c54f8b58fab721c4a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2069840201981535210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,6 +149,16 @@ PrefabInstance:
       propertyPath: pressurePlate
       value: 
       objectReference: {fileID: 820649687000157820}
+    - target: {fileID: 1718690849216310665, guid: 44b2847a5f426794995c51bcd86d2791,
+        type: 3}
+      propertyPath: emitters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1718690849216310665, guid: 44b2847a5f426794995c51bcd86d2791,
+        type: 3}
+      propertyPath: emitters.Array.data[0]
+      value: 
+      objectReference: {fileID: 820649687294228780}
     - target: {fileID: 1718690849216310674, guid: 44b2847a5f426794995c51bcd86d2791,
         type: 3}
       propertyPath: m_Mesh

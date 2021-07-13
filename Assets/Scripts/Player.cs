@@ -164,7 +164,6 @@ public class Player : MonoBehaviour
             if(currentStamina < maxStamina)
             {
                 float reg = 5f * Time.deltaTime;
-                Debug.Log("Regenerating " + reg +  " stamina.");
                 addStamina(reg);
             }
             

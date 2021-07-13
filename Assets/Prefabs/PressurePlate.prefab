@@ -269,7 +269,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 81c1860e7800e5340bf8a54c565ba9ea, type: 2}
+  - {fileID: 2100000, guid: 6c22434506a63314d9d2b3b167b32b42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -325,3 +325,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressurePlate: {fileID: 0}
+  emitters: []
