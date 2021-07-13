@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+
+    public GameObject gameOverUI;
     public void Restart()
     {
         SceneManager.LoadScene("LevelsScene");
