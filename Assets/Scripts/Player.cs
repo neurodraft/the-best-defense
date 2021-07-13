@@ -61,6 +61,11 @@ public class Player : MonoBehaviour
         //Show key in UI
     }
 
+    public bool HasKey()
+    {
+        return hasKey;
+    }
+
     public void ResetState(Dictionary<string, object> message)
     {
 
@@ -156,7 +161,6 @@ public class Player : MonoBehaviour
             if(currentStamina < maxStamina)
             {
                 float reg = 5f * Time.deltaTime;
-                Debug.Log("Regenerating " + reg +  " stamina.");
                 addStamina(reg);
             }
             
