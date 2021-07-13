@@ -32,31 +32,4 @@ public class Stamina : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-
-
-
-    //    if (playerStamina.getIsShieldActive() && playerStamina.getCurrentStamina()>0.0f)
-    //    {
-
-    //        timer -= Time.deltaTime;
-    //        playerStamina.updateStamina(timer);
-    //        float updateStaminaSlider = playerStamina.getCurrentStamina()/10;
-    //        slider.value = updateStaminaSlider;
-
-    //    }
-    //    else if(!playerStamina.getIsShieldActive() && playerStamina.getCurrentStamina()<10.0f)
-    //    {
-    //        timer += Time.deltaTime;
-    //        playerStamina.updateStamina(timer);
-    //        float updateStaminaSlider = playerStamina.getCurrentStamina() / 10;
-    //        slider.value = updateStaminaSlider;
-    //    }
-    //    if(playerStamina.getIsShieldActive() && playerStamina.getCurrentStamina() <= 0)
-    //    {
-    //        playerStamina.setShieldActive(false);
-    //    }
-    //}
 }

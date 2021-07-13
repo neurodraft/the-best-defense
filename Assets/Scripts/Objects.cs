@@ -36,11 +36,11 @@ public class Objects : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         if (!destroyed)
         {
-            if (other.gameObject.CompareTag("Projectile"))
+            if (collision.gameObject.CompareTag("Projectile"))
             {
                 Instantiate(sphere, transformPosition.position + Vector3.up, transform.rotation, transform.parent);
                 if (vaseDestroySound != null)
