@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6170375555863582179}
   - component: {fileID: 6162105127052703321}
   - component: {fileID: 6185231983903853750}
-  - component: {fileID: 6185231983903853745}
   - component: {fileID: 8949210519708743220}
+  - component: {fileID: -970174273619384874}
   m_Layer: 0
   m_Name: Vase
   m_TagString: Untagged
@@ -28,9 +28,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6184122303308453277}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -105.85, y: -429.474, z: 4.1585712}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -90,26 +90,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6184122303308453277}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.13423502, y: 0.3079418, z: 0.1321957}
   m_Center: {x: 0, y: 0.15397087, z: 0.000000022351742}
---- !u!114 &6185231983903853745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6184122303308453277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60fd1a38f48ac59469a0bb68ace3bde2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphere: {fileID: 3793295647190202661, guid: 41a8e79dcdc9e8d4eb2c76b8a5622e73, type: 3}
-  transformPosition: {fileID: 6180992455960612871}
-  vaseDestroySound: {fileID: 8300000, guid: bf460a01fb8c0154a8eac77fb2098dcf, type: 3}
 --- !u!82 &8949210519708743220
 AudioSource:
   m_ObjectHideFlags: 0
@@ -206,3 +191,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-970174273619384874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6184122303308453277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5828aabd4bf6ee45ae8795d0e8dbfaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphere: {fileID: 3793295647190202661, guid: 41a8e79dcdc9e8d4eb2c76b8a5622e73, type: 3}
+  transformPosition: {fileID: 6180992455960612871}
+  vaseDestroySound: {fileID: 8300000, guid: bf460a01fb8c0154a8eac77fb2098dcf, type: 3}

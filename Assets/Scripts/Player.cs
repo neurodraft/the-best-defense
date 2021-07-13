@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
     private CharacterController controller;
@@ -40,8 +41,10 @@ public class Player : MonoBehaviour
     private AudioSource audioSource;
     
 
+  
     private void Start()
     {
+      
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
