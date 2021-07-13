@@ -5,10 +5,12 @@ using UnityEngine;
 public class Key : MonoBehaviour
 {
     public float rotationSpeed = 100f;
+    public AudioClip keyPickUpSound;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -26,11 +28,23 @@ public class Key : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //GetComponent<AudioSource>().Play();
+            if(keyPickUpSound != null)
+            {
+                audioSource.PlayOneShot(keyPickUpSound);
+            }
             EventManager.TriggerEvent("key_picked_up", null);
-            this.gameObject.SetActive(false);
+            StartCoroutine(Disappear());
             
         }
+    }
+
+    private IEnumerator Disappear()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        GetComponent<SphereCollider>().enabled = true;
+        yield return new WaitForSeconds(2f);
+        this.gameObject.SetActive(false);
+
     }
 
 }
