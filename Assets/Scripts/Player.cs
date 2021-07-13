@@ -51,7 +51,12 @@ public class Player : MonoBehaviour
         addHealth(maxHealth);
         addStamina(maxStamina);
         EventManager.StartListening("key_picked_up", KeyPickedUp);
+        EventManager.StartListening("key_used", UseKey);
 
+    }
+    private void UseKey(Dictionary<String, object> message)
+    {
+        hasKey = false;
     }
 
     private void KeyPickedUp(Dictionary<String,object> message)
