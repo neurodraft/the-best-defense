@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphere: {fileID: 8448835148011750216, guid: 869c47aad08ed9541906914dd4539e01, type: 3}
   transformPosition: {fileID: 1167574433776073526}
-  vaseDestroySound: {fileID: 8300000, guid: bf460a01fb8c0154a8eac77fb2098dcf, type: 3}
+  vaseDestroySound: {fileID: 8300000, guid: 96bf09ed4c78ff749bd22d96034a4f59, type: 3}
 --- !u!1001 &5040448416512617265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,6 +92,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VaseStamina Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185231983903853750, guid: e8b006884bfb21a42a8d26d3f508be44,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -970174273619384874, guid: e8b006884bfb21a42a8d26d3f508be44, type: 3}

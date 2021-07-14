@@ -79,6 +79,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 00cca0cc458da094cbee7cb095d46a53, type: 2}
     - target: {fileID: 7292847837834161385, guid: 41a8e79dcdc9e8d4eb2c76b8a5622e73,
         type: 3}
+      propertyPath: addHealth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7292847837834161385, guid: 41a8e79dcdc9e8d4eb2c76b8a5622e73,
+        type: 3}
       propertyPath: addStamina
       value: 1
       objectReference: {fileID: 0}

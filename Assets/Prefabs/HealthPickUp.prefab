@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3578ccce75b5c2449bd7de36d4006fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereSound: {fileID: 8300000, guid: 0d0a07acf003853419f49c930c8cd50e, type: 3}
+  sphereSound: {fileID: 8300000, guid: f9a0ee2f03c04ae4f998e36418a03911, type: 3}
   addStamina: 0
   addHealth: 1
 --- !u!82 &5870573589965860957
