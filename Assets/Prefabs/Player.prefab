@@ -71,7 +71,7 @@ MonoBehaviour:
   shield: {fileID: 6967507133111652902}
   damageParticleSystem: {fileID: 6967507133026603649}
   cameraTracker: {fileID: 6967507132251587952}
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 10
   maxStamina: 100
   currentStamina: 10
