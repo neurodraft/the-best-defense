@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    
+    public GameObject optionsMenuUI;
 
     public void StartGame()
     {
@@ -16,5 +16,14 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         Debug.Log("Game closed");
     }
-   
+   public void OptionsButton()
+    {
+        optionsMenuUI.SetActive(true);
+
+    }
+    public void BackButton()
+    {
+        optionsMenuUI.SetActive(false);
+
+    }
 }

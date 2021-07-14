@@ -10,6 +10,7 @@ public class Menus : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject gameOverMenuUI;
     public GameObject keyIcon;
+    public GameObject howToPLayMenuUI;
 
     private void Start()
     {
@@ -80,7 +81,16 @@ public class Menus : MonoBehaviour
     {
         keyIcon.SetActive(false);
     }
-
+    public void OptionsButton()
+    {
+        Time.timeScale = 0f;
+        howToPLayMenuUI.SetActive(true);
+    }
+    public void BackButton()
+    {
+        Time.timeScale = 1f;
+        howToPLayMenuUI.SetActive(false);
+    }
 
 
 
