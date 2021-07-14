@@ -88,7 +88,6 @@ public class Menus : MonoBehaviour
     }
     public void BackButton()
     {
-        Time.timeScale = 1f;
         howToPLayMenuUI.SetActive(false);
     }
 
