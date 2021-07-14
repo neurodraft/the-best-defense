@@ -6,7 +6,7 @@ public class DoorTarget : MonoBehaviour
 {
     public Transform door;
     private bool isOpen = false;
-    private float doorOpeningDuration = 5f;
+    private float doorOpeningDuration = 2f;
     public float doorSpeed = 0.2f;
     private Vector3 targetPosition;
     public AudioSource doorAudioSource;
@@ -52,8 +52,8 @@ public class DoorTarget : MonoBehaviour
         while (timer < doorOpeningDuration)
         {
             timer += Time.fixedDeltaTime;
-            door.position = Vector3.Lerp(defaultPosition, targetPosition, timer * doorSpeed);
-            yield return null;
+            door.position = Vector3.Lerp(defaultPosition, targetPosition, timer / doorOpeningDuration);
+            yield return new WaitForFixedUpdate();
         }   
     }
 
