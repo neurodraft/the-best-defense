@@ -6,7 +6,7 @@ public class KeyDoorTrigger : MonoBehaviour
 {
     public Transform door;
     private bool isOpen = false;
-    private float doorOpeningDuration = 5f;
+    private float doorOpeningDuration = 2f;
     public float doorSpeed = 0.2f;
     public AudioSource doorAudioSource;
     
@@ -47,8 +47,8 @@ public class KeyDoorTrigger : MonoBehaviour
         while (timer < doorOpeningDuration)
         {
             timer += Time.fixedDeltaTime;
-            door.position = Vector3.Lerp(defaultPosition, targetPosition, timer * doorSpeed);
-            yield return null;
+            door.position = Vector3.Lerp(defaultPosition, targetPosition, timer / doorOpeningDuration);
+            yield return new WaitForFixedUpdate();
         }
     }
 }
