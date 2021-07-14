@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("LevelsScene");
+        EventManager.TriggerEvent("next_level", null);
     }
     public void ExitButton()
     {
