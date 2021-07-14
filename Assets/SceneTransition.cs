@@ -9,12 +9,15 @@ public class SceneTransition : MonoBehaviour
     public int nextLevelIndex;
     public GameObject loadingScreen;
     public Slider slider;
+    public GameObject text;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
         EventManager.StartListening("next_level", LoadNextLevel);
+        EventManager.StartListening("restart_level", RestartLevel);
     }
 
     // Update is called once per frame
@@ -29,8 +32,15 @@ public class SceneTransition : MonoBehaviour
 
     }
 
+    private void RestartLevel(Dictionary<string, object> message)
+    {
+        StartCoroutine(LoadAssync(SceneManager.GetActiveScene().buildIndex));
+
+    }
+
     IEnumerator LoadAssync(int sceneIndex)
     {
+        Time.timeScale = 0f;
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         operation.allowSceneActivation = false;
 
@@ -46,15 +56,20 @@ public class SceneTransition : MonoBehaviour
             if (operation.progress >= 0.9f)
             {
                 //Change the Text to show the Scene is ready
-                //m_Text.text = "Press the space bar to continue";
+                text.SetActive(true);
                 //Wait to you press the space key to activate the Scene
                 if (Input.GetKeyDown(KeyCode.Space))
                     //Activate the Scene
                     operation.allowSceneActivation = true;
             }
+ 
         }
+        Time.timeScale = 1f;
 
-  
+
+
+
+
 
 
 

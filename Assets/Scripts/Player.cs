@@ -79,10 +79,6 @@ public class Player : MonoBehaviour
 
     }
 
-    public void AddHealth(Dictionary<string, object> message)
-    {
-
-    }
     public void HandleDamage(Dictionary<string, object> message)
     {
         setShieldActive(false);
@@ -227,15 +223,18 @@ public class Player : MonoBehaviour
 
     private void handleShield()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            setShieldActive(true);
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            setShieldActive(false);
+   
+            if (currentStamina >= 10 && Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                setShieldActive(true);
+            }
+            if (Input.GetKeyUp(KeyCode.Mouse1))
+            {
+                setShieldActive(false);
 
-        }
+            }
+    
+        
     }
 
     public void setShieldActive(bool val)
@@ -311,11 +310,21 @@ public class Player : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina + value, 0, maxStamina);
         EventManager.TriggerEvent("player_stamina_update", new Dictionary<string, object> { { "current", currentStamina }, { "max", maxStamina } });
 
+        if(currentStamina == 0)
+        {
+            setShieldActive(false);
+        }
+
     }
     public void addHealth(float value)
     {
         currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
         EventManager.TriggerEvent("player_health_update", new Dictionary<string, object> { { "current", currentHealth }, { "max", maxHealth } });
+
+        if(currentHealth == 0)
+        {
+            EventManager.TriggerEvent("player_died", null);
+        }
     }
     
 }

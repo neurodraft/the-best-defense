@@ -120,7 +120,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1db08473acbdfa24fbc1a7c3b98be099, type: 2}
+  - {fileID: 2100000, guid: 1675e0a7c7252fc43b23d1a19970277c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereSound: {fileID: 8300000, guid: 0d0a07acf003853419f49c930c8cd50e, type: 3}
+  addStamina: 0
+  addHealth: 1
 --- !u!82 &5870573589965860957
 AudioSource:
   m_ObjectHideFlags: 0

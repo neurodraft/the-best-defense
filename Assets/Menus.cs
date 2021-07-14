@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +9,16 @@ public class Menus : MonoBehaviour
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
     public GameObject gameOverMenuUI;
-    
-    Scene scene;
+    public GameObject keyIcon;
+
+    private void Start()
+    {
+        EventManager.StartListening("player_died", GameOver);
+        EventManager.StartListening("key_picked_up", KeyPickedUp);
+        EventManager.StartListening("key_used", KeyUsed);
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -47,7 +56,7 @@ public class Menus : MonoBehaviour
     {
         gameOverMenuUI.SetActive(false);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        EventManager.TriggerEvent("restart_level", null);
 
         
     }
@@ -55,6 +64,24 @@ public class Menus : MonoBehaviour
     {
         SceneManager.LoadScene("Scenes/MainMenu");
     }
+
+    public void GameOver(Dictionary<string, object> message)
+    {
+        Time.timeScale = 0f;
+        gameOverMenuUI.SetActive(true);
+    }
+
+    public void KeyPickedUp(Dictionary<string, object> message)
+    {
+        keyIcon.SetActive(true);
+    }
+
+    public void KeyUsed(Dictionary<string, object> message)
+    {
+        keyIcon.SetActive(false);
+    }
+
+
 
 
 }

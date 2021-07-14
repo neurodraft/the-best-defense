@@ -8,6 +8,9 @@ public class Sphere : MonoBehaviour
     private AudioSource audioSource;
     private bool destroyed = false;
 
+    public bool addStamina = false;
+    public bool addHealth = false;
+
 
     private void Start()
     {
@@ -32,12 +35,24 @@ public class Sphere : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player") )
             {
+
                 if (sphereSound != null)
                 {
                     audioSource.PlayOneShot(sphereSound);
 
                 }
-                
+
+                Player player = other.gameObject.GetComponent<Player>();
+
+                if (addHealth)
+                {
+                    player.addHealth(10);
+                }
+                if (addStamina)
+                {
+                    player.addStamina(10);
+                }
+
                 StartCoroutine(Destroyed());
 
             }
